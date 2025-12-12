@@ -1,0 +1,10 @@
+.paredao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../assets/tijolo.svg");
+    background-size: auto;
+    width: clamp(200px, 70%, 1200px);
+    height: max-content;
+    box-shadow: 2.5rem 1rem orange;
+}

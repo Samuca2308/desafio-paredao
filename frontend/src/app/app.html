@@ -1,0 +1,60 @@
+<main>
+  <h1 class="text-center text-xl my-6 font-semibold">Paredão do BBB 2025</h1>
+  <div class="m-auto translate-x-[-2.5rem] paredao border-3">
+    <div class="w-max translate-x-[2.5rem] py-6 px-12 m-8 bg-white border-3">
+      <h2 class="text-center text-xl mb-6 font-semibold">Vote em quem você quer eliminar do BBB!</h2>
+      <div class="flex">
+        @for (contestant of contestants(); track contestant) {
+          <button
+            (click)="castVote(confirm, stats, contestant.id)"
+            class="bg-white block mx-8 max-w-sm p-6 border border-default rounded-base shadow-xs hover:bg-neutral-100 hover:scale-105 cursor-pointer"
+          >
+            <img src="../assets/contestant.svg" [alt]="contestant.name">
+            {{contestant.name}}
+          </button>
+        }
+      </div>
+    </div>
+  </div> 
+</main>
+
+<ng-template #stats let-modal>
+  <div class="absolute bg-white mt-30 ml-[50%] translate-x-[-50%] border-3 z-999 justify-center items-center w-2/3 md:inset-0 h-2/5">
+    <div class="modal-header text-center text-xl my-8 font-semibold">
+      <h2>{{votedForPercent().toFixed(1)}}% das pessoas votaram em {{toVote()}}!</h2>
+    </div>
+    <div class="modal-body mx-8">
+      <input id="barra-porcentual" type="range" disabled [value]="votedForPercent()" class="w-full h-2 bg-gray-300 rounded-full appearance-none">
+    </div>
+    <div class="modal-footer">
+      <button
+        (click)="modal.close()"
+        class="absolute bottom-4 right-4 bg-cyan-600 font-semibold text-white rounded-full p-2 cursor-pointer"
+      >
+        Fechar
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #confirm let-modal>
+  <div class="absolute bg-white mt-30 ml-[50%] translate-x-[-50%] border-3 z-999 justify-center items-center w-1/3 md:inset-0 h-1/3">
+    <div class="modal-header text-center text-xl my-8 font-semibold">
+      <h2>Tem certeza que quer votar em {{toVote()}}?</h2>
+    </div>
+    <div class="modal-footer flex justify-center p-8">
+      <button
+        (click)="modal.close(true)"
+        class="bottom-4 right-4 bg-cyan-600 mr-6 font-semibold text-white rounded-full p-2 cursor-pointer"
+      >
+        Sim
+      </button>
+      <button
+        (click)="modal.close(false)"
+        class="bottom-4 right-4 bg-cyan-600 font-semibold text-white rounded-full p-2 cursor-pointer"
+      >
+        Não
+      </button>
+    </div>
+  </div>
+</ng-template>

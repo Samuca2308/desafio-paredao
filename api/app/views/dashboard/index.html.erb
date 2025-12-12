@@ -1,0 +1,19 @@
+<h1>Dashboard</h1>
+
+<h2>Votos totais por Participante</h2>
+<%= pie_chart @total_votes.map { |c| [c.name, c.vote_count] }, height: "500px" %>
+
+<h2>Votos por Hora (Últimas 24 Horas)</h2>
+<%= line_chart @votes_by_hour, height: "400px" %>
+
+<h2>Porcentagem de Votos</h2>
+<%= bar_chart @vote_percentages.map { |c| [c[:name], c[:percentage]] }, height: "400px" %>
+
+<h2>Status do Rate Limiter</h2>
+<p>
+  <% if @rate_limit_status&.[](:exceeded) %>
+    Rate limit exceeded: <%= @rate_limit_status&.[](:exceeded_count) %> requests
+  <% else %>
+    Rate limit not exceeded: <%= @rate_limit_status&.[](:remaining) %> requests remaining
+  <% end %>
+</p>
